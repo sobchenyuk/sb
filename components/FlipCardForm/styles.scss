@@ -1,0 +1,58 @@
+$flip-duration: 1s;
+$perspective: 15rem;
+$degree: 90deg;
+.FlipCard {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  .FlipCard-Front {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    // Animations
+    &.FlipCard-Back-Flip {
+      animation: back-flip-1 $flip-duration 1 forwards;
+      @keyframes back-flip-1 {
+        0% {transform: rotateY(0deg); z-index: 1}
+        50% {transform: rotateY($degree) perspective($perspective); z-index: 1}
+        100% {transform: rotateY($degree); z-index: -1}
+      }
+    }
+    &.FlipCard-Front-Flip {
+      animation: front-flip-1 $flip-duration 1 forwards;
+      @keyframes front-flip-1 {
+        0% {transform: rotateY(-$degree); z-index: -1}
+        50% {transform: rotateY(-$degree) perspective($perspective); z-index: -1}
+        100% {transform: rotateY(0deg); z-index: 1}
+      }
+    }
+  }
+  .FlipCard-Back {
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    // Animations
+    transform: rotateY(-$degree);
+    &.FlipCard-Back-Flip {
+      animation: back-flip-2 $flip-duration 1 forwards;
+      @keyframes back-flip-2 {
+        0% {z-index: -1}
+        50% {transform: rotateY(-$degree) perspective($perspective); z-index: -1}
+        100% {transform: rotate(0deg); z-index: 1}
+      }
+    }
+    &.FlipCard-Front-Flip {
+      animation: front-flip-2 $flip-duration 1 forwards;
+      @keyframes front-flip-2 {
+        0% {transform: rotate(0deg); z-index: 1}
+        50% {transform: rotateY($degree) perspective($perspective); z-index: 1}
+        100% {transform: rotateY($degree); z-index: -1}
+      }
+    }
+  }
+}
+.FlipCard {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
